@@ -1,129 +1,68 @@
 package dat3.car.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Member {
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
-
+    @Column(name = "member_username", nullable = false)
     private String username;
+    @Column (name = "member_email", nullable = false)
     private String email;
+    @Column (name = "member_password", nullable = false)
     private String password;
+    @Column (name = "member_firstName", nullable = false)
     private String firstName;
+    @Column (name = "member_lastName", nullable = false)
     private String lastName;
+    @Column (name = "member_street", nullable = false)
     private String street;
+    @Column (name = "member_city", nullable = false)
     private String city;
-    private int zip;
+    @Column (name = "member_zip", nullable = false)
+    private String zip;
+    @Column (name = "member_approved", nullable = false)
     private boolean approved;
+    @Column(name = "member_ranking")
     private int ranking;
+    @ElementCollection
+    List<String> favoriteCarColors = new ArrayList<>();
+    @ElementCollection
+    @MapKeyColumn(name = "Description")
+    @Column(name = "phone_number")
+    Map<String, String> phones = new HashMap<>();
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
-    public Member() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Member(String username, String email, String firstName, String lastName, String street, String city, int zip, boolean approved, int ranking){
-        this.username = username;
+    public Member(String user, String password, String email,
+                  String firstName, String lastName, String street, String city, String zip) {
+        this.username = user;
+        this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
         this.city = city;
         this.zip = zip;
-        this.approved = approved;
-        this.ranking = ranking;
     }
-
-   public String getUsername(){
-       return this.username;
-   }
-
-   public String getEmail(){
-       return this.email;
-   }
-
-   public String getPassword(){
-       return this.password;
-   }
-
-   public String getFirstName(){
-       return this.firstName;
-   }
-
-   public String getLastName(){
-       return this.lastName;
-   }
-
-   public String getStreet(){
-       return this.street;
-   }
-
-   public String getCity(){
-       return this.city;
-   }
-
-   public int getZip(){
-       return this.zip;
-   }
-
-   public boolean getApproved(){
-       return this.approved;
-   }
-
-   public int getRanking(){
-       return this.ranking;
-   }
-
-   public void setUsername(String username){
-       this.username = username;
-   }
-
-   public void setEmail(String email){
-       this.email = email;
-   }
-
-   public void setPassword(String password){
-       this.password = password;
-   }
-
-   public void setFirstName(String firstName){
-       this.firstName = firstName;
-   }
-
-   public void setLastName(String lastName){
-       this.lastName = lastName;
-   }
-
-   public void setStreet(String street){
-       this.street = street;
-   }
-
-   public void setCity(String city){
-       this.city = city;
-   }
-
-   public void setZip(int zip){
-       this.zip = zip;
-   }
-
-   public void setApproved(boolean approved){
-       this.approved = approved;
-   }
-
-   public void setRanking(int ranking){
-       this.ranking = ranking;
-   }
 }
