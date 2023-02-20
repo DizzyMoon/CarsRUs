@@ -27,6 +27,10 @@ public class Member {
     String street;
     String city;
     String zip;
+
+    @OneToMany(mappedBy = "member")
+    List<Reservation> reservations = new ArrayList<>();
+
     boolean approved;
     int ranking;
 

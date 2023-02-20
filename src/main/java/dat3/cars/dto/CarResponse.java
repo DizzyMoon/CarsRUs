@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class CarResponse {
-
     String brand;
     String model;
     double pricePrDay;
@@ -28,8 +27,8 @@ public class CarResponse {
         this.pricePrDay = car.getPricePrDay();
         if(includeAll){
             this.bestDiscount = (int) car.getBestDiscount();
-            this.created = car.getCreateDateTime();
-            this.edited = car.getUpdateDateTime();
+            this.created = car.getCreated();
+            this.edited = car.getLastEdited();
         }
     }
 }

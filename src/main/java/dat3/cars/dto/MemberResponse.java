@@ -39,8 +39,8 @@ public class MemberResponse {
         this.city = m.getCity();
         this.zip = m.getZip();
         if(includeAll){
-            this.created = m.getCreateDateTime();
-            this.edited = m.getUpdateDateTime();
+            this.created = m.getCreated();
+            this.edited = m.getLastEdited();
             this.approved = m.isApproved();
             this.ranking = m.getRanking();
         }

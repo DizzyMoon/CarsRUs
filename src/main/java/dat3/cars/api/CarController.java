@@ -2,7 +2,10 @@ package dat3.cars.api;
 
 import dat3.cars.dto.CarRequest;
 import dat3.cars.dto.CarResponse;
+import dat3.cars.dto.ReservationRequest;
+import dat3.cars.dto.ReservationResponse;
 import dat3.cars.service.CarService;
+import dat3.cars.service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,12 @@ import java.util.List;
 public class CarController {
 
     CarService carService;
+
+    public CarController(CarService carService){
+        this.carService = carService;
+    }
+
+
     public CarService getCarService() {
         return carService;
     }

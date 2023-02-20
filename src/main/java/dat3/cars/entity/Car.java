@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,6 +32,9 @@ public class Car {
 
     @Column(name="max_discount")
     int bestDiscount;
+
+    @OneToMany(mappedBy = "car")
+    List<Reservation> reservations = new ArrayList<>();
 
     @CreationTimestamp
     LocalDateTime created;

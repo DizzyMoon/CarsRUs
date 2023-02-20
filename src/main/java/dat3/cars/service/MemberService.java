@@ -2,6 +2,7 @@ package dat3.cars.service;
 
 import dat3.cars.dto.MemberRequest;
 import dat3.cars.dto.MemberResponse;
+import dat3.cars.entity.Car;
 import dat3.cars.entity.Member;
 import dat3.cars.repositories.MemberRepository;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,6 +94,8 @@ public class MemberService {
         memberRepository.save(memberToEdit);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
+
+
 
     public ResponseEntity<Boolean> deleteMemberByUsername(String username) {
         try {
