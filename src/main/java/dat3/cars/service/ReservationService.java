@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +33,29 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
+    public List<ReservationResponse> getReservationsByDate(LocalDate date, boolean includeAll) {
+        List<Reservation> reservations = reservationRepository.findAll();
+        List<Reservation> foundReservations = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            if (reservation.getRentalDate() == date) {
+                foundReservations.add(reservation);
+            }
+        }
+        return foundReservations.stream().map(reservation -> new ReservationResponse(reservation, includeAll)).collect(Collectors.toList());
+    }
+
     public ReservationResponse addReservation(ReservationRequest body) {
-        Reservation newReservation = Reservation.builder().reservationDate(LocalDate.now())
-                .rentalDate(body.getRentalDate())
-                .member(body.getMember())
-                .car(body.getCar())
-                .build();
-        newReservation = reservationRepository.save(newReservation);
-        return new ReservationResponse(newReservation, true);
+        if (getReservationsByDate(body.getRentalDate(), false) != null) {
+            Reservation newReservation = Reservation.builder().reservationDate(LocalDate.now())
+                    .rentalDate(body.getRentalDate())
+                    .member(body.getMember())
+                    .car(body.getCar())
+                    .build();
+            newReservation = reservationRepository.save(newReservation);
+            return new ReservationResponse(newReservation, true);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is already booked on given date");
+        }
     }
 
     public List<ReservationResponse> getReservations(boolean includeAll) {

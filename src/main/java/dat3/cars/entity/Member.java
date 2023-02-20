@@ -28,7 +28,7 @@ public class Member {
     String city;
     String zip;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Reservation> reservations = new ArrayList<>();
 
     boolean approved;

@@ -33,7 +33,7 @@ public class Car {
     @Column(name="max_discount")
     int bestDiscount;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Reservation> reservations = new ArrayList<>();
 
     @CreationTimestamp
